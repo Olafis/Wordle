@@ -1,0 +1,14 @@
+import os
+
+
+
+def extract_five_letter_lines(open_path, output_path):
+    with open(open_path, 'r') as src, open(output_path, 'w') as dst:
+        for word in src:
+            if len(word.strip()) == 5:  #주의 strip에 () 안하면 TypeError: object of type 'builtin_function_or_method' has no len()
+                dst.write(word)
+    
+def main():
+    extract_five_letter_lines('./dictionary/words_alpha.txt', './dictionary/wordle_list.txt')
+
+main()
