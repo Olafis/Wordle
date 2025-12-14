@@ -1,5 +1,5 @@
 import random
-
+import datetime
 
 def choose_todays_word():
     with open('./dictionary/wordle_list.txt', 'r') as dst:
