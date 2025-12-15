@@ -1,18 +1,31 @@
 import random
-import datetime
+import json
+from datetime import date
+
+
+
+def get_current_date():
+    current_date = date.today()
+    print(f"디버깅용 날짜 : {current_date}")
+    return current_date
+#current_date = check_todays_date()
+
+
 
 def choose_todays_word():
-    with open('./dictionary/wordle_list.txt', 'r') as dst:
-        words = dst.readlines()
+
+    with open('./dictionary/wordle_list.txt', 'r') as src, open('./dictionary/answer_list.json', 'w') as dst:
+        words = src.readlines()
         word = random.choice(words).strip()
         print(f"디버깅용 정답 : {word}")
         return word
 #choose_todays_word()
 
 
+
 def players_guess():
-    with open('./dictionary/wordle_list.txt', 'r') as dst:
-        words = [w.strip() for w in dst.readlines()] #  words = [] for w in dst.readlinea(): words.append(w.strip())    한줄로 줄인거
+    with open('./dictionary/wordle_list.txt', 'r') as src:
+        words = [w.strip() for w in src.readlines()] #  words = [] for w in dst.readlinea(): words.append(w.strip())    한줄로 줄인거
     while True:
         players_word = input('5자리 글자를 입력하세요')
         if len(players_word) != 5:
@@ -22,12 +35,10 @@ def players_guess():
         if players_word not in words:
             continue
         return players_word
-                
-
-
 #answer = choose_todays_word()#실행 시 디버깅용 정답과 answer가 다름.answer가 진짜 정답임을 유념하고 코딩
 #player_input = players_guess() #리턴은 값만 받는 용도고 따로 선언 필요
 #print(player_input)
+
 
 
 def match_player_guess_and_answer(player_input, answer):
@@ -40,6 +51,7 @@ def match_player_guess_and_answer(player_input, answer):
         else:
             result.append("grey")
     return result       #for 문에 넣으면 한번만 검사해서 틀림 ["grey"]처럼 나옴
+
 
 
 def main():
@@ -58,5 +70,7 @@ def main():
         if guess_count == 6:
             print("Sorry you failed")
             break
+
+
 
 main()
